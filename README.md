@@ -14,7 +14,7 @@ NOTE depends on [nginx-ingress](https://github.com/kubernetes/charts/tree/master
 #### Deploy
 Set config and secrets in values.yaml
 
-```
+```yaml
 consul:
   address: http://consul-consul.vault:8500
   backup_interval: 86400

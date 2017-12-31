@@ -11,7 +11,7 @@ $ make push
 ### Helm chart
 NOTE depends on [nginx-ingress](https://github.com/kubernetes/charts/tree/master/stable/nginx-ingress), [external-dns](https://github.com/kubernetes/charts/tree/master/stable/external-dns), and [kube-lego](https://github.com/kubernetes/charts/tree/master/stable/kube-lego)
 
-#### Deploy
+#### Helm Deployment
 Set config and secrets in values.yaml
 
 ```yaml
@@ -32,4 +32,18 @@ $ make deploy
 
 ```bash
 $ make delete
+```
+
+#### Remote trigger
+NOTE uses vault userpass for auth
+
+```
+$ vault auth-enable userpass
+$ vault write auth/userpass/users/<username> \
+  password=<password> \
+  policies=<policy>
+```
+
+```
+$ curl -u $(VAULT_USER):$(VAULT_PASS) https://$(SERVICE).$(DOMAIN)
 ```

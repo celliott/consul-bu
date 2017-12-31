@@ -2,36 +2,29 @@
 
 import os
 import json
-import requests
-import logging
 import boto3
+import logging
+import options
+import requests
 import datetime
 from flask import Flask, jsonify, request, Response
 from functools import wraps
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
-
-bucket = os.getenv('BUCKET', 'cheapandsalty')
-region = os.getenv('REGION', 'us-east-1')
-aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
-aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
-port = os.getenv('PORT', 3000)
-debug = os.getenv('DEBUG', False)
-consul_addr = os.getenv('CONSUL_ADDR', 'http://127.0.0.1:8500')
-interval = os.getenv('INTERVAL', 86400)
-tmp_file = '/tmp/snapshot.tgz'
+options = options.get_options()
 
 app = Flask(__name__)
 s3 = boto3.client(
   's3',
-  aws_access_key_id = aws_access_key_id,
-  aws_secret_access_key = aws_secret_access_key,
+  aws_access_key_id = options['aws_access_key_id'],
+  aws_secret_access_key = options['aws_secret_access_key'],
 )
 
 def check_auth(username, password):
+  """Uses vault userpass for auth. See readme"""
   headers = {'content-type': 'application/json'}
-  url = "{0}/v1/auth/userpass/login/{1}".format(vault_addr, username)
+  url = "{0}/v1/auth/userpass/login/{1}".format(options['vault_addr'], username)
   data = { "password": password }
   r = requests.post(url, headers=headers, data=json.dumps(data))
   response = json.loads(r.text)
@@ -56,13 +49,14 @@ def requires_auth(f):
   return decorated
 
 def backup_consul():
-  r = requests.get("{0}/v1/snapshot".format(consul_addr))
-  with open(tmp_file, 'wb') as code:
+  """Gets snapshot from consul http endpoint and copies to s3 bucket"""
+  r = requests.get("{0}/v1/snapshot".format(options['consul_addr']))
+  with open(options['tmp_file'], 'wb') as code:
     code.write(r.content)
   now = datetime.datetime.now()
   key = "consul-bu/{0}-snapshot.tgz".format(now.strftime("%Y-%m-%d"))
-  s3.upload_file(key, bucket, tmp_file)
-  os.remove(tmp_file)
+  s3.upload_file(key, options['bucket'], options['tmp_file'])
+  os.remove(options['tmp_file'])
 
 @app.route('/healthz', methods=['GET'])
 def healthz():
@@ -74,7 +68,7 @@ def trigger():
   return backup_consul()
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', port=port, debug=debug)
+  app.run(host='0.0.0.0', port=options['port'], debug=options['debug'])
   while True:
     backup_consul()
-    time.sleep(int(interval))
+    time.sleep(int(options['interval']))

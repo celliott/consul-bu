@@ -1,4 +1,6 @@
 replicaCount: 1
+vault:
+  address: http://vault-vault.vault:8200
 consul:
   address: http://consul-consul.vault:8500
   backup_interval: 86400

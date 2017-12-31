@@ -12,3 +12,4 @@ data:
   s3-region: "{{ .Values.s3_region }}"
   backup-interval: "{{ .Values.consul.backup_interval }}"
   consul-addr: "{{ .Values.consul.address }}"
+  vault-addr: "{{ .Values.vault.address }}"

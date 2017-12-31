@@ -24,6 +24,11 @@ spec:
           env:
             - name: PORT
               value: {{ .Values.service.internalPort }}
+            - name: VAULT_ADDR
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: vault-addr
             - name: CONSUL_ADDR
               valueFrom:
                 configMapKeyRef:

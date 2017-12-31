@@ -20,7 +20,7 @@ tail :
 	docker tail -f $(CONTAINER)
 
 shell :
-	docker exec -ti $(CONTAINER) /bin/bash
+	docker exec -ti $(CONTAINER) /bin/sh
 
 reset : down up
 

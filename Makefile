@@ -16,17 +16,11 @@ up :
 down :
 	docker-compose down
 
-tail :
-	docker tail -f $(CONTAINER)
-
-shell :
-	docker exec -ti $(CONTAINER) /bin/sh
-
 reset : down up
 
 deploy :
-	@if [ ! -f values.yaml ]; then
-		touch values.yaml
+	@if [ ! -f values.yaml ]; then \
+		touch values.yaml; \
 	fi
 	helm init --client-only
 	-kubectl create namespace vault

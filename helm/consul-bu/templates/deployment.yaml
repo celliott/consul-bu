@@ -22,8 +22,6 @@ spec:
           ports:
             - containerPort: {{ .Values.service.internalPort }}
           env:
-            - name: PORT
-              value: {{ .Values.service.internalPort }}
             - name: VAULT_ADDR
               valueFrom:
                 configMapKeyRef:

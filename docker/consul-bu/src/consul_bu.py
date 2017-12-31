@@ -2,6 +2,7 @@
 
 import os
 import json
+import time
 import boto3
 import logging
 import options
@@ -15,11 +16,10 @@ logger = logging.getLogger(__name__)
 options = options.get_options()
 
 app = Flask(__name__)
-s3 = boto3.client(
-  's3',
-  aws_access_key_id = options['aws_access_key_id'],
-  aws_secret_access_key = options['aws_secret_access_key'],
-)
+s3 = boto3.resource('s3',
+  aws_access_key_id=options['aws_access_key_id'],
+  aws_secret_access_key=options['aws_secret_access_key'],
+  region_name=options['region'])
 
 def check_auth(username, password):
   """Uses vault userpass for auth. See readme"""
@@ -55,7 +55,7 @@ def backup_consul():
     code.write(r.content)
   now = datetime.datetime.now()
   key = "consul-bu/{0}-snapshot.tgz".format(now.strftime("%Y-%m-%d"))
-  s3.upload_file(key, options['bucket'], options['tmp_file'])
+  s3.meta.client.upload_file(options['tmp_file'], options['bucket'], key)
   os.remove(options['tmp_file'])
 
 @app.route('/healthz', methods=['GET'])
@@ -65,10 +65,11 @@ def healthz():
 @app.route('/', methods=['GET'])
 @requires_auth
 def trigger():
-  return backup_consul()
+  backup_consul()
+  return json.dumps({'status':'ok'}), 200, {'ContentType':'application/json'}
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', port=options['port'], debug=options['debug'])
   while True:
     backup_consul()
+    app.run(host='0.0.0.0', port=options['port'], debug=options['debug'])
     time.sleep(int(options['interval']))

@@ -8,8 +8,8 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  s3-bucket: "{{ .Values.s3_bucket }}"
-  s3-region: "{{ .Values.s3_region }}"
+  s3-bucket: "{{ .Values.aws.s3_bucket }}"
+  s3-region: "{{ .Values.aws.s3_region }}"
   backup-interval: "{{ .Values.consul.backup_interval }}"
   consul-addr: "{{ .Values.consul.address }}"
   vault-addr: "{{ .Values.vault.address }}"

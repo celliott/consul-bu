@@ -2,7 +2,6 @@
 A container to backup consul to s3. Backup runs on interval and has http trigger with auth.
 
 Next steps:
-* Debug and deploy
 * Add error handling
 * Get temp AWS creds from vault
 

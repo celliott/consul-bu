@@ -6,7 +6,7 @@ ADD ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
 # add password
-ADD ./src/consul_bu.py /opt/consul_bu.py
-RUN chmod +x /opt/consul_bu.py
+ADD ./src/* /opt/
+RUN chmod +x /opt/*.py
 
 CMD ["/opt/consul_bu.py"]

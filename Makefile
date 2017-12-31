@@ -25,9 +25,9 @@ shell :
 reset : down up
 
 deploy :
-  @if [ ! -f values.yaml ]; then
-    touch values.yaml
-  fi
+	@if [ ! -f values.yaml ]; then
+		touch values.yaml
+	fi
 	helm init --client-only
 	-kubectl create namespace vault
 	helm upgrade -i $(SERVICE) helm/$(SERVICE) \

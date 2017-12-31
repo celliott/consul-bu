@@ -37,13 +37,13 @@ $ make delete
 #### Remote trigger
 NOTE uses vault userpass for auth
 
-```
+```bash
 $ vault auth-enable userpass
 $ vault write auth/userpass/users/<username> \
   password=<password> \
   policies=<policy>
 ```
 
-```
-$ curl -u $(VAULT_USER):$(VAULT_PASS) https://$(SERVICE).$(DOMAIN)
+```bash
+$ curl -u ${VAULT_USER}:${VAULT_PASS} https://${SERVICE}.${DOMAIN}
 ```

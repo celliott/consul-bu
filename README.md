@@ -39,9 +39,9 @@ NOTE uses vault userpass for auth
 
 ```bash
 $ vault auth-enable userpass
-$ vault write auth/userpass/users/<username> \
-  password=<password> \
-  policies=<policy>
+$ vault write auth/userpass/users/${VAULT_USER} \
+  password=${VAULT_PASS} \
+  policies=default
 ```
 
 ```bash

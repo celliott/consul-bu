@@ -1,0 +1,8 @@
+version: "3"
+services:
+  consul_bu:
+    build: ./docker/${CONTAINER}
+    image: ${ORGANIZATION}/${CONTAINER}:${BUILD_TAG}
+    container_name: ${CONTAINER}
+    ports:
+      - "3000:3000"

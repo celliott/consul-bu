@@ -1,0 +1,12 @@
+apiVersion: v1
+description: A Helm chart for running consul-bu in Kubernetes
+name: consul-bu
+version: 0.1.0
+keywords:
+- kubernetes deployment
+- helm release
+- consul-bu
+sources:
+- https://github.com/celliott/consul-bu
+maintainers:
+- name: celliott

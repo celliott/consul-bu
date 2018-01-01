@@ -5,8 +5,8 @@ consul:
   address: http://consul-consul.vault:8500
   backup_interval: 86400
 aws:
+  default_region: us-east-1
   s3_bucket:
-  s3_region: us-east-1
 
 image:
   repository: celliott/consul-bu

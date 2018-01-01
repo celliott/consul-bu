@@ -42,11 +42,11 @@ spec:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
                   key: s3-bucket
-            - name: S3_REGION
+            - name: AWS_DEFAULT_REGION
               valueFrom:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
-                  key: s3-region
+                  key: aws_default_region
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:

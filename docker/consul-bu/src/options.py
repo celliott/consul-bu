@@ -12,6 +12,6 @@ def get_options():
     'debug': os.getenv('DEBUG', False),
     'consul_addr': os.getenv('CONSUL_ADDR', 'http://127.0.0.1:8500'),
     'vault_addr': os.getenv('VAULT_ADDR', 'http://127.0.0.1:8200'),
-    'interval': os.getenv('INTERVAL', 86400),
+    'interval': os.getenv('INTERVAL'),
     'tmp_file': 'snapshot.tgz',
   }

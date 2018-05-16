@@ -69,7 +69,9 @@ def trigger():
   return json.dumps({'status':'ok'}), 200, {'ContentType':'application/json'}
 
 if __name__ == "__main__":
-  while True:
-    backup_consul()
-    app.run(host='0.0.0.0', port=options['port'], debug=options['debug'])
-    time.sleep(int(options['interval']))
+    if interval:
+        while True:
+            backup_consul()
+            time.sleep(int(options['interval']))
+    else:
+        app.run(host='0.0.0.0', port=options['port'], debug=options['debug'])

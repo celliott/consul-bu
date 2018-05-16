@@ -5,7 +5,7 @@ MAINTAINER chris elliott <ctelliott@gmail.com>
 ADD ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
 
-# add password
+# add consul-bu
 ADD ./src/* /opt/
 RUN chmod +x /opt/*.py
 

@@ -22,4 +22,10 @@ ingress:
   hostname:
   tls:
     enabled: true
-resources: {}
+resources:
+  limits:
+    cpu: 200m
+    memory: 250m
+  requests:
+    cpu: 200m
+    memory: 250m

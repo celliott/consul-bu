@@ -7,7 +7,7 @@ validate :
 build : validate
 	docker-compose build
 
-test : up
+test :
 	@echo "Running tests..."
 	@sleep 2
 	@echo "Tests succesfully run."

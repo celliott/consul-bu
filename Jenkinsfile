@@ -14,7 +14,7 @@ pipeline {
 
     stage('deploy to dev') {
       steps {
-        timeout(time: 1, unit: 'HOURS') {
+        timeout(time: 5, unit: 'MINUTES') {
           input 'Deploy to dev?'
         }
         sh 'echo "deploying..."'

@@ -1,7 +1,7 @@
 version: "3"
 services:
-  consul_bu:
-    build: ./docker/${CONTAINER}
+  consul_snaphot:
+    build: ./app/${CONTAINER}
     image: ${ORGANIZATION}/${CONTAINER}:${BUILD_TAG}
     container_name: ${CONTAINER}
     ports:

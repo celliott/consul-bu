@@ -8,8 +8,12 @@ build : validate
 	docker-compose build
 
 test : up
-	@url=http://127.0.0.1:3000
-	@curl --output /dev/null --silent --head --fail --max-time 10 --connect-timeout 3 "$url"
+	until $$(curl --output /dev/null --silent --head --fail http://localhost:3000/health); do \
+		printf '.'; \
+		sleep 1; \
+	done
+
+	docker-compose down
 
 push : build
 	docker-compose push
@@ -19,6 +23,9 @@ up :
 
 down :
 	docker-compose down
+
+tail :
+	docker-compose logs -f
 
 reset : down up
 

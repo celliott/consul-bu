@@ -7,10 +7,9 @@ validate :
 build : validate
 	docker-compose build
 
-test :
-	@echo "Running tests..."
-	@sleep 2
-	@echo "Tests succesfully run."
+test : up
+	@url=http://127.0.0.1:3000
+	@curl --output /dev/null --silent --head --fail --max-time 10 --connect-timeout 3 "$url"
 
 push : build
 	docker-compose push

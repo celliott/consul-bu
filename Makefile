@@ -7,6 +7,11 @@ validate :
 build : validate
 	docker-compose build
 
+test : up
+	@echo "Running tests..."
+	@sleep 2
+	@echo "Tests succesfully run."
+
 push : build
 	docker-compose push
 

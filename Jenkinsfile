@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('docker build') {
       steps {
-        sh 'make up'
+        sh 'make build'
+        sh 'make test'
       }
     }
   }

@@ -3,7 +3,6 @@ services:
   consul_snaphot:
     build: ./app/${CONTAINER}
     image: ${ORGANIZATION}/${CONTAINER}:${BUILD_TAG}
-    container_name: ${CONTAINER}
     ports:
       - "3000:3000"
     environment:

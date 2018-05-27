@@ -11,11 +11,12 @@ pipeline {
         sh 'make test'
       }
     }
+
     stage('deploy to dev') {
-      timeout(time: 1, unit: 'HOURS') {
-        input 'Deploy to dev?'
-      }
       steps {
+        timeout(time: 1, unit: 'HOURS') {
+          input 'Deploy to dev?'
+        }
         sh 'echo "deploying..."'
       }
     }

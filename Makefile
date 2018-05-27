@@ -8,9 +8,9 @@ build : validate
 	docker-compose build
 
 test : up
-	until $$(curl --output /dev/null --silent --head --fail http://localhost:3000/health); do \
+	until $$(curl --output /dev/null --silent --head --fail http://localhost:3000/healthz); do \
 		printf '.'; \
-		sleep 1; \
+		sleep 5; \
 	done
 
 	docker-compose down

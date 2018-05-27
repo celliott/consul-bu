@@ -1,11 +1,14 @@
 pipeline {
+
   agent any
+
   stages {
     stage('docker build') {
       steps {
         sh 'make build'
       }
     }
+
     stage('docker test') {
       steps {
         sh 'make test'

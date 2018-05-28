@@ -15,9 +15,9 @@ pipeline {
     stage('deploy to dev') {
       steps {
         timeout(time: 1, unit: 'HOURS') {
-          input 'Deploy to dev?'
+          input message: 'deploy to dev?', submitter: 'admin', submitterParameter: 'submitter'
         }
-        sh 'echo "deploying..."'
+        sh 'echo "deploying to dev..."'
       }
     }
   }

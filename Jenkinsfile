@@ -15,40 +15,37 @@ pipeline {
       }
     }
 
-    environment {
-        ENVIRONMENT = 'dev'
-    }
-
     stage('deploy to dev') {
+      environment {
+          ENVIRONMENT = 'dev'
+      }
       steps {
-        sh 'echo "deploying to ${ENVIRONMENT}..."'
+        sh 'echo "deploy to ${ENVIRONMENT}..."'
       }
     }
 
-    environment {
-        ENVIRONMENT = 'stg'
-    }
-
     stage('deploy to stg') {
+      environment {
+          ENVIRONMENT = 'stg'
+      }
       steps {
         timeout(time: 1, unit: 'HOURS') {
           input message: 'deploy to stg?', submitter: 'admin', submitterParameter: 'submitter'
         }
         sh 'export ENVIRONMENT=stg'
-        sh 'echo "deploying to ${ENVIRONMENT}..."'
+        sh 'echo "deploy to ${ENVIRONMENT}..."'
       }
     }
 
-    environment {
-        ENVIRONMENT = 'prod'
-    }
-
     stage('deploy to prod') {
+      environment {
+          ENVIRONMENT = 'prod'
+      }
       steps {
         timeout(time: 1, unit: 'HOURS') {
           input message: 'deploy to prod?', submitter: 'admin', submitterParameter: 'submitter'
         }
-        sh 'echo "deploying to ${ENVIRONMENT}..."'
+        sh 'echo "deploy to ${ENVIRONMENT}..."'
       }
     }
   }

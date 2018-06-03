@@ -1,4 +1,4 @@
-include default.mk
+include defaults.mk
 export
 
 validate :
@@ -8,6 +8,7 @@ build : validate
 	docker-compose build
 
 test : up
+	export BRANCH_NAME=$(eval BRANCH_NAME = $(shell git rev-parse --abbrev-ref HEAD))
 	until $$(curl --output /dev/null --silent --head --fail http://172.17.0.1:3000/healthz); do \
 		printf '.'; \
 		sleep 5; \
@@ -19,6 +20,7 @@ push : build
 	docker-compose push
 
 up :
+	export BRANCH_NAME=$(eval BRANCH_NAME = $(shell git rev-parse --abbrev-ref HEAD))
 	docker-compose up -d
 
 down :
@@ -42,4 +44,5 @@ deploy :
 		-f values.yaml
 
 delete :
+
 	helm del --purge $(SERVICE)

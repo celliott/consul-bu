@@ -1,4 +1,4 @@
-# vault
+# consul-bu
 A container to backup consul to s3. Backup runs on interval and has http trigger with auth.
 
 
@@ -14,7 +14,10 @@ $ make push
 ```
 
 ### Helm chart
-NOTE depends on [nginx-ingress](https://github.com/kubernetes/charts/tree/master/stable/nginx-ingress), [external-dns](https://github.com/kubernetes/charts/tree/master/stable/external-dns), and [kube-lego](https://github.com/kubernetes/charts/tree/master/stable/kube-lego)
+k8s dependencies
+* [nginx-ingress](https://github.com/kubernetes/charts/tree/master/stable/nginx-ingress)
+* [external-dns](https://github.com/kubernetes/charts/tree/master/stable/external-dns)
+* [kube-lego](https://github.com/kubernetes/charts/tree/master/stable/kube-lego)
 
 #### Helm Deployment
 Set config and secrets in values.yaml

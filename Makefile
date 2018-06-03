@@ -7,14 +7,12 @@ validate :
 build : validate
 	docker-compose build
 
-test : up
+test : down up
 	export BRANCH_NAME=$(eval BRANCH_NAME = $(shell git rev-parse --abbrev-ref HEAD))
 	until $$(curl --output /dev/null --silent --head --fail http://172.17.0.1:3000/healthz); do \
 		printf '.'; \
 		sleep 5; \
 	done
-
-	docker-compose down
 
 push : build
 	docker-compose push

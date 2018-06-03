@@ -1,4 +1,4 @@
-# Docker ENVs
+# docker-compose ENVs
 ORGANIZATION=celliott
 CONTAINER=consul-bu
 BUILD_TAG ?= latest

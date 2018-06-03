@@ -1,8 +1,9 @@
 version: "3"
 services:
-  consul_snaphot:
+  consul_bu:
     build: ./app/${CONTAINER}
     image: ${ORGANIZATION}/${CONTAINER}:${BUILD_TAG}
+    container_name: consul_bu_${BRANCH_NAME}
     ports:
       - "3000:3000"
     environment:

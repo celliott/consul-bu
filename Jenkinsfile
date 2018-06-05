@@ -21,7 +21,7 @@ pipeline {
       }
       steps {
         sh 'echo "deploy to ${ENVIRONMENT}..."'
-        sh 'helm init'
+        sh 'make deploy'
       }
     }
 
@@ -34,7 +34,7 @@ pipeline {
           input message: 'deploy to stg?', submitter: 'admin', submitterParameter: 'submitter'
         }
         sh 'export ENVIRONMENT=stg'
-        sh 'helm init'
+        sh 'make deploy'
         sh 'echo "deploy to ${ENVIRONMENT}..."'
       }
     }

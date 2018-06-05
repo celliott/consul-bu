@@ -21,6 +21,7 @@ pipeline {
       }
       steps {
         sh 'echo "deploy to ${ENVIRONMENT}..."'
+        sh 'helm init'
       }
     }
 
@@ -33,6 +34,7 @@ pipeline {
           input message: 'deploy to stg?', submitter: 'admin', submitterParameter: 'submitter'
         }
         sh 'export ENVIRONMENT=stg'
+        sh 'helm init'
         sh 'echo "deploy to ${ENVIRONMENT}..."'
       }
     }
@@ -46,6 +48,7 @@ pipeline {
           input message: 'deploy to prod?', submitter: 'admin', submitterParameter: 'submitter'
         }
         sh 'echo "deploy to ${ENVIRONMENT}..."'
+        sh 'helm init'
       }
     }
   }
